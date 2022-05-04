@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul{
+            width: 400px;
+            margin: 0 auto 0;
+            padding: 0;
+
+            list-style: none;
+        }
+        li{
+            line-height: 50px;
+            border-bottom: 1px solid red;
+        }
+        .del,.update{
+            float: right;
+            height: 30px;
+            line-height: 30px;
+            margin-top: 10px;
+            margin-left: 10px;
+            color: #fff;
+            text-align: center;
+            padding:0 5px;
+        }
+        .del{
+            background: red;
+        }
+        .update{
+            background: green;
+        }
+        button{
+            display: block;
+            margin: 20px auto 0;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li>id  &nbsp;  &nbsp;&nbsp; name  &nbsp;  &nbsp;&nbsp;    address  &nbsp;    &nbsp;&nbsp;   phone<span class="del">删除</span> <span class="update">修改</span> </li>
+    <li>1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;李四&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;成都&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;123456 <span class="del">删除</span> <span class="update">修改</span></li>
+    <li>2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;张三&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;德阳&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;234567 <span class="del">删除</span> <span class="update">修改</span></li>
+    <li>3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;李四&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;王五&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;345678 <span class="del">删除</span> <span class="update">修改</span></li>
+    <li>列表5 <span class="del">删除</span> <span class="update">修改</span></li>
+</ul>
+<button>添加</button>
+<script>
+    //需求：每一个li中的删除和修改按钮都可以对这个li进行操作，
+    //点击添加按钮可以添加一个li
+    //新添加的li也可以有删除和修改的效果
+    var ul = document.querySelector('ul');
+    var btn = document.querySelector('button');
+    //点击添加按钮，添加一个li
+    btn.onclick = function(){
+        //1.弹窗
+        var val = prompt('请输入内容');//获取到用户输入的内容，作为一会添加的li的内容
+        //2.获取输入的内容 并添加li
+        var li = document.createElement('li');
+        li.innerHTML = val + ' <span class="del">删除</span> <span class="update">修改</span>';
+        //3.追加li到ul中
+        ul.appendChild(li);
+
+    }
+
+    ul.onclick = function(e){
+        var ev = window.event || e;
+        console.log(ev.target);//实际触发事件的元素
+        //判断：如果点击的元素内容为修改 就执行修改效果  如果点击的元素内容为删除，就执行删除效果
+        //点击删除按钮  删除当前的li
+        if(ev.target.innerHTML=='删除'){
+            //删除当前点击的按钮的父元素即可
+            ev.target.parentNode.remove();
+        }
+
+        //点击修改按钮修改当前li
+        else if(ev.target.innerHTML=='修改'){
+            var val1 = prompt('请输入修改内容');
+            ev.target.parentNode.innerHTML = val1 + ' <span class="del">删除</span> <span class="update">修改</span>'
+        }
+    }
+
+</script>
+</body>
+</html>
